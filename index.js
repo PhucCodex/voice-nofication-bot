@@ -4,7 +4,7 @@ const path = require('path'); // Thư viện 'path' của Node.js
 const fs = require('fs');
 
 // --- CẤU HÌNH ---
-const TOKEN = 'TOKEN HERE';
+const TOKEN = process.env.TOKEN;
 // --- KẾT THÚC CẤU HÌNH ---
 
 // === CÀI ĐẶT DATABASE CHO RAILWAY ===
@@ -149,4 +149,8 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 });
 
 // Đăng nhập bot (Nhớ điền TOKEN)
-client.login(TOKEN);
+if (!TOKEN) {
+    console.error("LỖI NGHIÊM TRỌNG: Không tìm thấy TOKEN. Hãy kiểm tra biến môi trường (Variables) trên Railway.");
+} else {
+    client.login(TOKEN);
+}
